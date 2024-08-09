@@ -5,23 +5,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
     customButtons.forEach(function(button) {
         button.addEventListener('click', function() {
+            var targetId = button.getAttribute('data-target');
+            var targetElement = document.querySelector(targetId);
+
             customButtons.forEach(function(btn) {
                 if (btn !== button) {
-                    var targetId = btn.getAttribute('data-target');
-                    var targetElement = document.querySelector(targetId);
-                    if (targetElement && targetElement.classList.contains('show')) {
+                    var otherTargetId = btn.getAttribute('data-target');
+                    var otherTargetElement = document.querySelector(otherTargetId);
+                    if (otherTargetElement && otherTargetElement.classList.contains('show')) {
+                        otherTargetElement.classList.remove('show');
                         btn.classList.remove('active');
-                        targetElement.classList.remove('show');
                     }
                 }
             });
 
-            var targetId = button.getAttribute('data-target');
-            var targetElement = document.querySelector(targetId);
+            // Toggle the current target element
             if (targetElement) {
-                button.classList.toggle('active');
                 targetElement.classList.toggle('show');
+                button.classList.toggle('active');
             }
         });
     });
 });
+
